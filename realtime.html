@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html class="ocks-org do-not-copy">
+<meta charset="utf-8">
+<title>Path Transitions</title>
+<style>
+
+.key{
+	float:right;
+}
+
+.key_line{
+	font-size:17px;
+	width:100%;
+}
+
+.key_square{
+	height:10px;
+	width:10px;
+	outline:solid 1px black;
+	float:left;
+	margin:6px 10px 0px 10px;
+}
+
+.y.axis text {
+	font-family: sans-serif;
+	font-size: 14px;
+}
+
+.y.axis text {
+	font-family: sans-serif;
+	font-size: 14px;
+}
+
+.x.axis line {
+  shape-rendering: crispEdges;
+  width: 0.5px;
+}
+
+.line {
+  fill: none;
+  stroke: #0066FF;
+  stroke-width: 3px;
+}
+
+.line2 {
+  fill: none;
+  stroke: #52db17;
+  stroke-width: 3px;
+}
+
+
+</style>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+
+
+<header>
+
+</header>
+
+
+<script>
+
+graph();
+
+
+function graph() {
+
+var n = 60,
+    duration = 2000,
+	i =-1,
+    now = new Date(Date.now() - duration),
+    count = 0,
+    count2 = 0,
+    data = d3.range(n).map(function() { return 0; }),
+    data2 = d3.range(n).map(function() { return 0; });
+
+var margin = {top: 10, right: 20, bottom: 30, left: 60},
+    width = 1200 - margin.left-margin.right,
+    height = 460 - margin.top - margin.bottom;
+
+var x = d3.time.scale()
+    .domain([now - (n - 2) * duration, now - duration])
+    .range([0, width]);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var line = d3.svg.line()
+    .interpolate("basis")
+    .x(function(d, i) { return x(now - (n - 1 - i) * duration); })
+    .y(function(d, i) { return y(d); });
+
+var line2 = d3.svg.line()
+    .interpolate("basis")
+    .x(function(d, i) { return x(now - (n - 1 - i) * duration); })
+    .y(function(d, i) { return y(d); });
+	
+
+var svg = d3.select("body").append("p").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .style("margin-left", -margin.left + "px")
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+svg.append("defs").append("clipPath")
+    .attr("id", "clip")
+  .append("rect")
+    .attr("width", width)
+    .attr("height", height);
+
+var axis = svg.append("g")
+    .attr("class", "x axis")
+    .attr("transform", "translate( "+margin.left+"," + height + ")")
+    .call(x.axis = d3.svg.axis().scale(x).orient("bottom"));
+
+
+var yaxis = svg.append("g")
+    .attr("class", "y axis")
+    .attr("transform", "translate(" + margin.left + ",0)")
+    .call(y.axis = d3.svg.axis().scale(y).orient("left"));
+	
+	
+d3.select(".y.axis")
+	.append("text")
+	.text("Travel Time (min)")
+	.attr("text-anchor", "middle")
+	.attr("transform","rotate( -90, 200, 0)")
+	.attr("y",-250);
+
+var path = svg.append("g")
+    .attr("clip-path", "url(#clip)")
+	.attr("transform", "translate(" + margin.left + ",0)")
+	.append("path")
+	.data([data])
+    .attr("class", "line");
+	
+var path2 = svg.append("g")
+    .attr("clip-path", "url(#clip)")
+	.attr("transform", "translate(" + margin.left + ",0)")	
+	.append("path")
+	.data([data2])
+    .attr("class", "line2")
+	
+//path.append("path2").data([data]).attr("class", "line2");
+
+
+tick();
+
+
+//d3.select(window)
+  //  .on("click", function() { ++count; });
+
+function tick() {
+  
+ d3.json("http://www.mapquestapi.com/directions/v1/route?key=Fmjtd%7Cluubn161nq%2Crs%3Do5-90awgy&from=metuchen,nj&to=manhattan,ny",function(barzo){
+  d3.json("http://dev.virtualearth.net/REST/V1/Routes/Driving?o=json&wp.0=metuchen,nj&wp.1=manhattan,ny&distanceUnit=mi&optmz=timeWithTraffic&key=AkLKahArqTCvH-K3tZb6cZh9g4XxwO2nySeFpqyG5Z7GlX3kE4PKzhfTO886MYZS",function(hirbo){
+	var gerek = barzo.route;
+	var len = gerek.realTime;
+	var aq = parseInt(len)/60;
+	var gerek2 = hirbo.resourceSets[0].resources[0].routeLegs[0].travelDuration;
+	console.log(gerek2 + ' gerek2');
+	var aq2 = parseInt(gerek2)/60;
+ 
+  // update the domains
+  	var a = d3.max(data),
+		b = d3.max(data2),
+		sas = [a,b],
+		c = d3.max(sas);
+
+  now = new Date();
+  x.domain([now - (n - 2) * duration, now - duration]);
+  y.domain([0, c+3]);
+
+ // push the accumulated count onto the back, and reset the count
+  data.push(count);
+  console.log(data+ ' data1');
+/*  var sum = data.reduce(function(a, b) { return a + b });
+  i = i + 1
+  if(i == 0){
+	  var count2 = 0;}
+	  else {
+  var count2 = sum/i;};*/
+  data2.push(count2); 
+  console.log(data2+ ' data2');
+  count = aq;
+  count2 = aq2;
+
+  // redraw the line
+  svg.select(".line")
+      .attr("d", line)
+      .attr("transform", null);
+
+  svg.select(".line2")
+      .attr("d", line2)
+      .attr("transform", null);
+	  
+  // slide the x-axis left
+  axis.transition()
+      .duration(duration)
+      .ease("linear")
+      .call(x.axis);
+	  
+  yaxis.transition()
+	  .duration(duration/10)
+      .ease("linear")
+  	  .call(y.axis);
+
+  // slide the line left
+  path.transition()
+      .duration(duration)
+      .ease("linear")
+      .attr("transform", "translate(" + x(now - (n - 1) * duration) + ")");
+	  
+  path2.transition()
+      .duration(duration)
+      .ease("linear")
+      .attr("transform", "translate(" + x(now - (n - 1) * duration) + ")")
+      .each("end", tick);	  
+	  
+  // pop the old data point off the front
+  data.shift();
+  data2.shift();
+
+})
+});
+}
+
+
+};
+
+
+</script>
+
+
