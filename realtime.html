@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="ocks-org do-not-copy">
+<html class="deneme1">
 <meta charset="utf-8">
 <title>Path Transitions</title>
 <style>
@@ -54,7 +54,6 @@
 
 
 <header>
-
 </header>
 
 
@@ -147,21 +146,23 @@ var path2 = svg.append("g")
 
 tick();
 
-
 //d3.select(window)
   //  .on("click", function() { ++count; });
+
+
 
 function tick() {
   
  d3.json("http://www.mapquestapi.com/directions/v1/route?key=Fmjtd%7Cluubn161nq%2Crs%3Do5-90awgy&from=metuchen,nj&to=manhattan,ny",function(barzo){
-  d3.json("http://www.mapquestapi.com/directions/v1/route?key=Fmjtd%7Cluubn161nq%2Crs%3Do5-90awgy&from=edison,nj&to=manhattan,ny",function(hirbo){
+ d3.json("http://dev.virtualearth.net/REST/V1/Routes/Driving?o=json&wp.0=metuchen,nj&wp.1=manhattan,ny&distanceUnit=mi&optmz=timeWithTraffic&key=AkLKahArqTCvH-K3tZb6cZh9g4XxwO2nySeFpqyG5Z7GlX3kE4PKzhfTO886MYZS",function(error, hirbo){
+   if (error) return console.warn(error);
 	var gerek = barzo.route;
 	var len = gerek.realTime;
 	var aq = parseInt(len)/60;
-	//var gerek2 = hirbo.resourceSets[0].resources[0].routeLegs[0].travelDuration;
-	var gerek2 = hirbo.route;
-	var len2 = gerek2.realTime;
-	var aq2 = parseInt(len2)/60;
+	data2 = hirbo
+	var gerek2 = data2.resourceSets[0].resources[0].routeLegs[0].travelDuration;
+	console.log(gerek2 + ' gerek2');
+	var aq2 = parseInt(gerek2)/60;
  
   // update the domains
   	var a = d3.max(data),
