@@ -158,9 +158,10 @@ function tick() {
 	var gerek = barzo.route;
 	var len = gerek.realTime;
 	var aq = parseInt(len)/60;
-	var gerek2 = hirbo.resourceSets[0].resources[0].routeLegs[0].travelDuration;
-	console.log(gerek2 + ' gerek2');
-	var aq2 = parseInt(gerek2)/60;
+	//var gerek2 = hirbo.resourceSets[0].resources[0].routeLegs[0].travelDuration;
+	var gerek2 = hirbo.route;
+	var len2 = gerek2.realTime;
+	var aq2 = parseInt(len2)/60;
  
   // update the domains
   	var a = d3.max(data),
