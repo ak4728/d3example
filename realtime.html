@@ -154,7 +154,7 @@ tick();
 function tick() {
   
  d3.json("http://www.mapquestapi.com/directions/v1/route?key=Fmjtd%7Cluubn161nq%2Crs%3Do5-90awgy&from=metuchen,nj&to=manhattan,ny",function(barzo){
-  d3.json("http://dev.virtualearth.net/REST/V1/Routes/Driving?o=json&wp.0=metuchen,nj&wp.1=manhattan,ny&distanceUnit=mi&optmz=timeWithTraffic&key=AkLKahArqTCvH-K3tZb6cZh9g4XxwO2nySeFpqyG5Z7GlX3kE4PKzhfTO886MYZS&callback",function(hirbo){
+  d3.json("http://www.mapquestapi.com/directions/v1/route?key=Fmjtd%7Cluubn161nq%2Crs%3Do5-90awgy&from=edison,nj&to=manhattan,ny",function(hirbo){
 	var gerek = barzo.route;
 	var len = gerek.realTime;
 	var aq = parseInt(len)/60;
