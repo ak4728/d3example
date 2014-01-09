@@ -58,12 +58,16 @@
 <header>
 </header>
 
-
-
 <body>
-
+<table width="614" border="0">
+  <tr>
+    <th width="127" scope="col"><img src="../d3example/urbanmitslogo.png" width="106" height="84" alt=""/></th>
+    <th width="246" scope="col"><img src="../d3example/nyu_long_color.png" width="203" height="40" alt=""/></th>
+    <th width="227" scope="col"><img src="../d3example/cusp-index.png" width="201" height="39" alt=""/></th>
+  </tr>
+</table>
 <p id="results">
- <label for="myaddress">Origin:</label>
+  <label for="myaddress">Origin:</label>
 <input type="text" id="txtAddress" />
 <label for="myaddress2">Destination:</label>
 <input type="text" id="txtAddress2" />
@@ -151,10 +155,12 @@ var axis = svg.append("g")
     .attr("transform", "translate( "+margin.left+"," + height + ")")
     .call(x.axis = d3.svg.axis().scale(x).orient("bottom"));
 
+
 var yaxis = svg.append("g")
     .attr("class", "y axis")
     .attr("transform", "translate(" + margin.left + ",0)")
     .call(y.axis = d3.svg.axis().scale(y).orient("left"));
+	
 	
 d3.select(".y.axis")
 	.append("text")
