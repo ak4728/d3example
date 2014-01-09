@@ -66,9 +66,9 @@
     <th width="227" scope="col"><img src="https://raw.github.com/ak4728/d3example/master/cusp-index.png" width="201" height="39" alt=""/></th>
   </tr>
 </table>
-<label for="myaddress">Origin:</label>
+<label for="myaddress">Origin Zipcode:</label>
 <input type="text" id="txtAddress" />
-<label for="myaddress2">Destination:</label>
+<label for="myaddress2">Destination Zipcode:</label>
 <input type="text" id="txtAddress2" />
 <input type="button" id="btnSearch" value="Submit" />
 <p id="results"></p>
@@ -246,15 +246,13 @@ d3.json("http://www.mapquestapi.com/directions/v1/route?key=Fmjtd%7Cluubn161nq%2
 	
  $.getJSON('http://dev.virtualearth.net/REST/V1/Routes/Driving?o=json&wp.0=' + $("#txtAddress").val() + '&wp.1=' + $("#txtAddress2").val() + '&distanceUnit=mi&optmz=timeWithTraffic&key=AnsWc3YravJBmbTYUxe6uAQFXxINbIwFwV03kzxNVPyTToG5jde5y10ar4iaH51X&jsonp=?', function (result) {
                     var loc = result.resourceSets[0].resources[0].routeLegs[0].travelDuration;
-	                $("#results").html('Bing Maps '+'minutes:' + loc/60 + ', secs:' + loc);
-
 					var aq2 = loc/60;
-	
+	                $("#results").html('Bing Maps: ' + aq2.toFixed(2) +' minutes.');	
 
 	var gerek = barzo.route;
 	var len = gerek.realTime;
 	var aq = parseInt(len)/60;
-	                    $("#results2").html('MapQuest '+'minutes:' + aq + ', secs:' + len);
+	                    $("#results2").html('MapQuest: '+ aq.toFixed(2)+' minutes.' );
 	console.log(aq + ' aq');
 //	var gerek2 = hirbo.resourceSets[0].resources[0].routeLegs[0].travelDuration;
 //	var aq2 = parseInt(gerek2)/60;
