@@ -61,7 +61,7 @@
 
 
 <body>
-<p id="table">
+/*<p id="table">
 <table width="614" border="0">
   <tr>
     <th width="127" scope="col"><img src="https://raw.github.com/ak4728/d3example/master/urbanmitslogo.png" width="106" height="84" alt=""/></th>
@@ -69,7 +69,7 @@
     <th width="227" scope="col"><img src="https://raw.github.com/ak4728/d3example/master/cusp-index.png" width="201" height="39" alt=""/></th>
   </tr>
 </table>
-</p>
+</p>*/
 <p id="results">
  <label for="myaddress">Origin:</label>
 <input type="text" id="txtAddress" />
@@ -159,12 +159,10 @@ var axis = svg.append("g")
     .attr("transform", "translate( "+margin.left+"," + height + ")")
     .call(x.axis = d3.svg.axis().scale(x).orient("bottom"));
 
-
 var yaxis = svg.append("g")
     .attr("class", "y axis")
     .attr("transform", "translate(" + margin.left + ",0)")
     .call(y.axis = d3.svg.axis().scale(y).orient("left"));
-	
 	
 d3.select(".y.axis")
 	.append("text")
