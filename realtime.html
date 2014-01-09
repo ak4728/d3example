@@ -72,6 +72,7 @@
 <input type="text" id="txtAddress2" />
 <input type="button" id="btnSearch" value="Geh bili bili" />
 <p id="results"></p>
+<p id="results2"></p>
 </body>
 
 <script>
@@ -246,7 +247,7 @@ d3.json("http://www.mapquestapi.com/directions/v1/route?key=Fmjtd%7Cluubn161nq%2
 	
  $.getJSON('http://dev.virtualearth.net/REST/V1/Routes/Driving?o=json&wp.0=' + $("#txtAddress").val() + '&wp.1=' + $("#txtAddress2").val() + '&distanceUnit=mi&optmz=timeWithTraffic&key=AnsWc3YravJBmbTYUxe6uAQFXxINbIwFwV03kzxNVPyTToG5jde5y10ar4iaH51X&jsonp=?', function (result) {
                     var loc = result.resourceSets[0].resources[0].routeLegs[0].travelDuration;
-                    $("#results").html('minutes:' + loc/60 + ', secs:' + loc);
+                    $("#results2").html('minutes2:' + loc/60 + ', secs2:' + loc);
 					var aq2 = loc/60;
 	
 
