@@ -85,7 +85,6 @@ $(document).ready(function () {
             $.getJSON('http://dev.virtualearth.net/REST/V1/Routes/Driving?o=json&wp.0=' + $("#txtAddress").val() + '&wp.1=' + $("#txtAddress2").val() + '&distanceUnit=mi&optmz=timeWithTraffic&key=AnsWc3YravJBmbTYUxe6uAQFXxINbIwFwV03kzxNVPyTToG5jde5y10ar4iaH51X&jsonp=?', function (result) {
                 if (result.resourceSets[0].estimatedTotal > 0) {
                     var loc = result.resourceSets[0].resources[0].routeLegs[0].travelDuration;
-                    $("#results").html('minutes:' + loc/60 + ', secs:' + loc);
 					var a = $("#txtAddress").val();
 					graph();
 
@@ -247,13 +246,15 @@ d3.json("http://www.mapquestapi.com/directions/v1/route?key=Fmjtd%7Cluubn161nq%2
 	
  $.getJSON('http://dev.virtualearth.net/REST/V1/Routes/Driving?o=json&wp.0=' + $("#txtAddress").val() + '&wp.1=' + $("#txtAddress2").val() + '&distanceUnit=mi&optmz=timeWithTraffic&key=AnsWc3YravJBmbTYUxe6uAQFXxINbIwFwV03kzxNVPyTToG5jde5y10ar4iaH51X&jsonp=?', function (result) {
                     var loc = result.resourceSets[0].resources[0].routeLegs[0].travelDuration;
-                    $("#results2").html('minutes2:' + loc/60 + ', secs2:' + loc);
+	                $("#results").html('Bing Maps '+'minutes:' + loc/60 + ', secs:' + loc);
+
 					var aq2 = loc/60;
 	
 
 	var gerek = barzo.route;
 	var len = gerek.realTime;
 	var aq = parseInt(len)/60;
+	                    $("#results2").html('MapQuest '+'minutes:' + aq + ', secs:' + len);
 	console.log(aq + ' aq');
 //	var gerek2 = hirbo.resourceSets[0].resources[0].routeLegs[0].travelDuration;
 //	var aq2 = parseInt(gerek2)/60;
